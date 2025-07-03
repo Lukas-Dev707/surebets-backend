@@ -9,7 +9,8 @@ app.use(express.json());
 // Rota principal de odds
 app.use('/odds', oddsRoutes);
 
-const PORT = 3001;
+// Usa a porta do Railway ou 3001 como fallback local
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
