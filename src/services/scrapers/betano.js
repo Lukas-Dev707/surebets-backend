@@ -1,18 +1,26 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium');
 
 async function scrapeBetano() {
-  const browser = await puppeteer.launch({
-  headless: false,
-  defaultViewport: null,
-  args: ['--start-maximized']
+  console.log("Acessando Betano...");
+
+ const browser = await puppeteer.launch({
+  headless: chromium.headless,
+  executablePath: await chromium.executablePath(),
+  args: chromium.args,
+  defaultViewport: chromium.defaultViewport,
 });
+
+
   const page = await browser.newPage();
 
   try {
     await page.goto('https://www.betano.bet.br/live/', { timeout: 0 });
+
     await page.waitForFunction(() => {
-  return document.querySelectorAll('[data-qa="event-card"]').length > 0;
-}, { timeout: 60000 });
+      return document.querySelectorAll('[data-qa="event-card"]').length > 0;
+    }, { timeout: 60000 });
+
     const games = await page.$$eval('[data-qa="event-card"]', cards => {
       const resultados = [];
 

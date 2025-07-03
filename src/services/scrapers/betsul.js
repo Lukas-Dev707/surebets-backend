@@ -1,12 +1,15 @@
 const puppeteer = require('puppeteer-core');
+const chromium = require('@sparticuz/chromium');
 
 async function scrapeBetsul() {
   console.log('Acessando Betsul...');
   const browser = await puppeteer.launch({
-    headless: 'new',
-    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+  headless: chromium.headless,
+  executablePath: await chromium.executablePath(),
+  args: chromium.args,
+  defaultViewport: chromium.defaultViewport,
+});
+
 
   const page = await browser.newPage();
   await page.goto('https://betsul.bet.br/esportes/ao-vivo', { waitUntil: 'networkidle2', timeout: 0 });

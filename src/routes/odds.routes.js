@@ -3,29 +3,33 @@ const router = express.Router();
 
 const scrapeBetano = require('../services/scrapers/betano');
 const scrapeBetsul = require('../services/scrapers/betsul');
-const scrapeSportingbet = require('../services/scrapers/sportingbet'); // ✅ Mantido
+const scrapeSportingbet = require('../services/scrapers/sportingbet'); // ✅ Certo
 
 router.get('/', async (req, res) => {
-  console.log('Iniciando scrapers...');
+  console.log('🔄 Iniciando scrapers...');
+
   try {
+    // Executa os scrapers em paralelo
     const [betanoOdds, betsulOdds, sportingbetOdds] = await Promise.all([
       scrapeBetano(),
       scrapeBetsul(),
-      scrapeSportingbet(), // ✅ Adicionado ao Promise.all
+      scrapeSportingbet(),
     ]);
 
+    // Combina todas as odds em um único array
     const combinedOdds = [
       ...betanoOdds,
       ...betsulOdds,
-      ...sportingbetOdds, // ✅ Adicionado ao array final
+      ...sportingbetOdds,
     ];
 
-    console.log('Scrapers finalizados!');
-    console.log('Odds combinadas:', combinedOdds);
+    console.log('✅ Scrapers finalizados!');
+    console.log('📊 Odds combinadas:', combinedOdds);
 
+    // Retorna os dados para o front-end
     res.json({ success: true, data: combinedOdds });
   } catch (error) {
-    console.error('Erro ao obter odds:', error);
+    console.error('❌ Erro detalhado ao obter odds:', error);
     res.json({ success: false, error: 'Erro ao obter odds' });
   }
 });
