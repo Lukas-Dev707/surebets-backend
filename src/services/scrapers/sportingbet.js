@@ -1,15 +1,15 @@
 const puppeteer = require('puppeteer-core');
 const chromium = require('@sparticuz/chromium');
 
-async function scrapeBetano() {
-  console.log('Acessando Betano...');
+async function scrapeSportingbet() {
+  console.log('Acessando Sportingbet...');
+
   const browser = await puppeteer.launch({
     args: chromium.args,
-    executablePath: await chromium.executablePath(), // ESSA linha é crucial!
+    executablePath: await chromium.executablePath(),
     headless: chromium.headless,
     defaultViewport: chromium.defaultViewport,
   });
-
 
   const page = await browser.newPage();
   await page.goto(
@@ -17,7 +17,7 @@ async function scrapeBetano() {
     { waitUntil: 'networkidle2', timeout: 0 }
   );
 
-  await page.waitForSelector('ms-event-group', { timeout: 30000 });
+  await page.waitForSelector('ms-event-group');
 
   const odds = await page.evaluate(() => {
     const partidas = [];
@@ -32,13 +32,13 @@ async function scrapeBetano() {
         const timeFora = times[1]?.textContent?.trim() || '';
         const partida = `${timeFora} x ${timeCasa}`;
 
-        const casa = parseFloat(oddsSpans[0]?.textContent.replace(',', '.')) || 0;
-        const empate = parseFloat(oddsSpans[1]?.textContent.replace(',', '.')) || 0;
-        const fora = parseFloat(oddsSpans[2]?.textContent.replace(',', '.')) || 0;
+        const casa = parseFloat(oddsSpans[0]?.textContent) || 0;
+        const empate = parseFloat(oddsSpans[1]?.textContent) || 0;
+        const fora = parseFloat(oddsSpans[2]?.textContent) || 0;
 
         partidas.push({
           partida,
-          odds: { casa, empate, fora },
+          odds: { casa, empate, fora }
         });
       }
     });
