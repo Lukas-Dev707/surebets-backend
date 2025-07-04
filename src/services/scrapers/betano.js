@@ -4,11 +4,11 @@ const chromium = require('@sparticuz/chromium');
 async function scrapeBetano() {
   console.log('Acessando Betano...');
   const browser = await puppeteer.launch({
-    args: chromium.args,
-    executablePath: await chromium.executablePath(), // ESSA linha é crucial!
-    headless: chromium.headless,
-    defaultViewport: chromium.defaultViewport,
-  });
+  args: chromium.args,
+  executablePath: await chromium.executablePath(),
+  headless: chromium.headless,
+  defaultViewport: chromium.defaultViewport,
+});
 
   const page = await browser.newPage();
 
