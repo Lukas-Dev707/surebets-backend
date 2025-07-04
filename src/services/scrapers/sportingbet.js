@@ -12,10 +12,10 @@ async function scrapeSportingbet() {
   });
 
   const page = await browser.newPage();
-  await page.goto(
-    'https://www.sportingbet.bet.br/pt-br/sports/ao-vivo/futebol-4',
-    { waitUntil: 'networkidle2', timeout: 0 }
-  );
+  await page.goto('https://www.sportingbet.bet.br/pt-br/sports/ao-vivo/futebol-4', {
+    waitUntil: 'networkidle2',
+    timeout: 0,
+  });
 
   await page.waitForSelector('ms-event-group');
 
