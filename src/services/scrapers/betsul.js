@@ -1,14 +1,14 @@
 const puppeteer = require('puppeteer-core');
 const chromium = require('@sparticuz/chromium');
 
-async function scrapeBetsul() {
-  console.log('Acessando Betsul...');
+async function scrapeBetano() {
+  console.log('Acessando Betano...');
   const browser = await puppeteer.launch({
-  headless: chromium.headless,
-  executablePath: await chromium.executablePath(),
-  args: chromium.args,
-  defaultViewport: chromium.defaultViewport,
-});
+    args: chromium.args,
+    executablePath: await chromium.executablePath(), // ESSA linha é crucial!
+    headless: chromium.headless,
+    defaultViewport: chromium.defaultViewport,
+  });
 
 
   const page = await browser.newPage();
