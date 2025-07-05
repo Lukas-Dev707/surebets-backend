@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     const [betanoOdds, betsulOdds, sportingbetOdds] = await Promise.all([
       scrapeBetano(),
       scrapeBetsul(),
-      scrapeSportingbet(),
+    //scrapeSportingbet(),
     ]);
 
     // Combina todas as odds em um único array
