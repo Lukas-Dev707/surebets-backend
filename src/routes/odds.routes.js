@@ -3,7 +3,7 @@ const router = express.Router();
 
 const scrapeBetano = require('../services/scrapers/betano');
 const scrapeBetsul = require('../services/scrapers/betsul');
-const scrapeSportingbet = require('../services/scrapers/sportingbet'); // ✅ Certo
+//const scrapeSportingbet = require('../services/scrapers/sportingbet'); // ✅ Certo
 
 router.get('/', async (req, res) => {
   console.log('🔄 Iniciando scrapers...');
