@@ -9,8 +9,7 @@ app.use(express.json());
 // 🔗 Usa as rotas definidas no arquivo que você mostrou
 app.use('/odds', oddsRoutes);
 
-// 🌐 Usa a porta automática do Render (importantíssimo!)
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000; // usa porta do Render ou 3000 local
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
